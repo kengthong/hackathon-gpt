@@ -10,7 +10,7 @@ import chromadb
 
 class Chatbot:
     def __init__(self):
-        self.persist_directory = "./chroma_db/"
+        self.persist_directory = "../chroma_db/"
         self.qa_chain = None
         self.init_rag()
 

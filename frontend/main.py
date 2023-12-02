@@ -15,27 +15,13 @@ async def on_message(message: cl.Message):
     # answer = cl.Message(content="")
 
     # Initialize loader
-<<<<<<< Updated upstream
-    #await answer.send()
+    await answer.send()
 
     # Retrieve answer from chatbot
-    cb = cl.AsyncLangchainCallbackHandler(stream_final_answer=True, answer_prefix_tokens=["FINAL", "ANSWER"])
+    cb = cl.AsyncLangchainCallbackHandler(stream_final_answer=True, force_stream_final_answer=True, answer_prefix_tokens=["Final", "Answer"])
     cb.answer_reached = True
-    result = await chatbot.qa_chain.acall(prompt, callbacks=[cb])
-
-    # Send back answer from chatbot
-    # answer.content = result['result']
-    # await answer.send()
-    await cl.Message(content=result['result']).send()
-
-=======
-    await answer.send()
-    cb2 = cl.AsyncLangchainCallbackHandler(stream_final_answer=True, force_stream_final_answer=True, answer_prefix_tokens=["Final", "Answer"])
-    cb2.answer_reached = True
-    result = await cl.make_async(chatbot.qa_chain.invoke)(prompt, config=RunnableConfig(callbacks=[cb2]))
     for chunk in await cl.make_async(chatbot.qa_chain.stream)(prompt, config=RunnableConfig(callbacks=[cb2])):
         await answer.stream_token(chunk)
 
     # Send back answer from chatbot
     await answer.send()
->>>>>>> Stashed changes
